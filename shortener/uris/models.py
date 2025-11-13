@@ -21,13 +21,13 @@ class Link(models.Model):
     expires_at = models.DateTimeField(default=None, null=True)
     
     @staticmethod
-    def generate_short_code():
+    def generate_short_code() -> str:
         short_code = ""
         for i in range(SHORT_CODE_LEN):
             short_code += random.choice(Link.ALPHABET)
         return short_code
     
     @property
-    def short_path(self):
+    def short_path(self) -> str:
         return reverse("short", kwargs={"short_code": self.short_code}) 
 

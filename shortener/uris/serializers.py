@@ -18,7 +18,7 @@ class LinkSerializer(serializers.ModelSerializer):
     )
     short_url = serializers.SerializerMethodField()
 
-    def validate_short_code(self, value):
+    def validate_short_code(self, value: str) -> str:
         if not value:
             short_code = Link.generate_short_code()
         else:
@@ -37,7 +37,7 @@ class LinkSerializer(serializers.ModelSerializer):
 
         return short_code 
     
-    def get_short_url(self, obj):
+    def get_short_url(self, obj: Link) -> str:
         request = self.context["request"]
 
         return request.build_absolute_uri(obj.short_path)
